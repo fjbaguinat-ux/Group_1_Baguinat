@@ -74,8 +74,8 @@ class AttendanceController extends Controller
         $column = $this->eventTitleColumn();
 
         $query = DB::table('attendances')
-            ->join('users', 'users.id', '=', 'attendances.student_id')
-            ->select('attendances.*', 'users.name as student_name', 'users.email as student_email');
+            ->join('students', 'students.id', '=', 'attendances.student_id')
+            ->select('attendances.*', 'students.name as student_name', 'students.email as student_email');
 
         if ($column !== null) {
             $query->leftJoin('events', 'events.id', '=', 'attendances.event_id')
@@ -103,7 +103,7 @@ class AttendanceController extends Controller
     public function create()
     {
         return view('attendance.create', [
-            'students' => DB::table('users')->orderBy('name')->get(['id', 'name', 'email']),
+            'students' => DB::table('students')->orderBy('name')->get(['id', 'name', 'email']),
             'events' => $this->events(),
             'statuses' => self::STATUSES,
         ]);
@@ -118,7 +118,7 @@ class AttendanceController extends Controller
         }
 
         $data = $request->validate([
-            'student_id' => ['required', 'integer', Rule::exists('users', 'id')],
+            'student_id' => ['required', 'integer', Rule::exists('students', 'id')],
             'event_id' => $eventRules,
             'status' => ['required', Rule::in(self::STATUSES)],
             'time_in' => ['nullable', 'date_format:H:i'],
@@ -148,7 +148,7 @@ class AttendanceController extends Controller
     /** Show the edit form (used to add time out or fix the status). */
     public function edit(Attendance $attendance)
     {
-        $student = DB::table('users')->where('id', $attendance->student_id)->first(['name', 'email']);
+        $student = DB::table('students')->where('id', $attendance->student_id)->first(['name', 'email']);
 
         return view('attendance.edit', [
             'attendance' => $attendance,

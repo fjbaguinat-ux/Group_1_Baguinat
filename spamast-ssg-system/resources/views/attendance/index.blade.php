@@ -48,8 +48,8 @@
                         </td>
                         <td>{{ $record->event_label ?? ('Event #' . $record->event_id) }}</td>
                         <td><span class="badge {{ $record->status }}">{{ ucfirst($record->status) }}</span></td>
-                        <td>{{ $record->time_in ? substr($record->time_in, 0, 5) : '—' }}</td>
-                        <td>{{ $record->time_out ? substr($record->time_out, 0, 5) : '—' }}</td>
+                        <td>{{ $record->time_in ? \Carbon\Carbon::parse($record->time_in)->format('g:i A') : '—' }}</td>
+                        <td>{{ $record->time_out ? \Carbon\Carbon::parse($record->time_out)->format('g:i A') : '—' }}</td>
                         <td>
                             <div class="actions">
                                 <a class="btn small ghost" href="{{ route('attendance.edit', $record->id) }}">Edit</a>

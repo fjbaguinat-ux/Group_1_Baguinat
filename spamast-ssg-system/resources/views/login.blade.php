@@ -46,6 +46,24 @@
             outline: none;
         }
         input:focus { border-color: #1d4ed8; box-shadow: 0 0 0 3px rgba(29, 78, 216, 0.15); }
+        .remember {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 18px;
+        }
+        .remember input {
+            width: auto;
+            padding: 0;
+            margin: 0;
+            cursor: pointer;
+        }
+        .remember label {
+            margin: 0;
+            font-weight: 500;
+            color: #475569;
+            cursor: pointer;
+        }
         button {
             width: 100%;
             padding: 13px;
@@ -92,6 +110,11 @@
 
             <label for="password">Password</label>
             <input type="password" id="password" name="password" placeholder="Enter your password" required>
+
+            <div class="remember">
+                <input type="checkbox" id="remember" name="remember" value="1">
+                <label for="remember">Remember me</label>
+            </div>
 
             <button type="submit">Login</button>
         </form>

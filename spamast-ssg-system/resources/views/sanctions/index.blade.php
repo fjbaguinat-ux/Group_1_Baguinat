@@ -65,15 +65,19 @@
     </style>
 </head>
 <body>
-<div class="container">
     <div class="header">
         <div>
             <h1>Sanctions Management</h1>
             <p>SPAMAST Supreme Student Government</p>
         </div>
-        <a class="button" href="{{ route('sanctions.create') }}">+ Add Sanction</a>
+        <div style="display:flex; gap:10px; align-items:center;">
+            <a class="button" href="{{ route('sanctions.create') }}">+ Add Sanction</a>
+            <form method="POST" action="{{ route('logout') }}" style="margin:0;">
+                @csrf
+                <button type="submit" style="background:#6b7280; color:white; padding:11px 16px; border:none; border-radius:6px; cursor:pointer; font-size:14px;">Logout</button>
+            </form>
+        </div>
     </div>
-
     @if (session('success'))
         <div class="success">{{ session('success') }}</div>
     @endif
